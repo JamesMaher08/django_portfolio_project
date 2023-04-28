@@ -1,0 +1,15 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+    {% for transaction in transactions %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ transaction.account.owner }}</a>
+              <small class="text-muted">{{ transaction.transaction_date|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ transaction.type }}</a></h2>
+            <p class="article-content">{{ transaction.ticker_symbol }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
