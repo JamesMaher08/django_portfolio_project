@@ -1,0 +1,20 @@
+{% extends "portfolio/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {% if request.path == '/transaction/new/' %}
+                <legend class="border-bottom mb-4">New Transaction</legend>
+            {% else %}
+                <legend class="border-bottom mb-4">Update Transaction</legend>
+            {% endif %}
+            {{ form|crispy }} 
+        </fieldset>
+        <div class="form-group pt-3 pb-3">
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

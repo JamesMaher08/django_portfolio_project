@@ -1,0 +1,19 @@
+{% extends "portfolio/base.html" %}
+{% block content %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ transaction.account.owner }}</a>
+        <small class="text-muted">{{ transaction.transaction_date|date:"F d, Y" }}</small>
+        {% if transaction.account.owner == user %}
+          <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'transaction-update' transaction.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'transaction-delete' transaction.id %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="article-title" href="#">{{ transaction.type }}</h2>
+      <p class="article-content">{{ transaction.ticker_symbol }}</p>
+    </div>
+  </article>
+{% endblock content %}

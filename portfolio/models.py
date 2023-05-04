@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # Create your models here.
 
@@ -16,7 +17,10 @@ class Account(models.Model):
 
 class Transaction(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    type = models.CharField(max_length=25)
+    type = models.CharField(
+           max_length=25,
+           choices=(("MARKET_BUY", "BUY"), ("MARKET_SELL", "SELL"), ("DIVIDEND_PAYMENT", "DIVIDEND"))
+           )
     transaction_date = models.DateTimeField(default=timezone.now)
     ticker_symbol = models.CharField(max_length=25)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -24,3 +28,6 @@ class Transaction(models.Model):
 
     def __str__(self):
            return f" Transaction [{self.type}] - {self.ticker_symbol} of {self.quantity} for ${self.price}"
+    
+    def get_absolute_url(self):
+           return reverse('transaction-detail', kwargs={'pk':self.pk})
